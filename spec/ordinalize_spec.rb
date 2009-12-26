@@ -31,6 +31,7 @@ describe "Ordinalize" do
    [27, "twenty-seventh"],
    [28, "twenty-eighth"],
    [29, "twenty-ninth"],
+   [1005, "one thousand and fifth"],
    [1024, "one thousand and twenty-fourth"]
   ].each do |num, expected|
     it "#{num} should be #{expected}" do

@@ -13,17 +13,23 @@ module Ordinalize
     humanized.gsub!(/ty$/, 'tieth')
     
     output = conversions[humanized] if conversions[humanized]
-    output ||= split if split != ""
+    output ||= split_dashes if split_dashes != ""
+    output ||= split_spaces if split_spaces != ""
     output ||= humanized
   end
   
   alias_method :ordinalise, :ordinalize
   
-  def split
-    humanized = self.humanize
-    parts = humanized.split("-")
+  def split_dashes
+    parts = humanize.split("-")
     parts[-1] = conversions[parts.last]
     parts.join("-")
+  end
+  
+  def split_spaces
+    parts = humanize.split(" ")
+    parts[-1] = conversions[parts.last]
+    parts.join(" ")
   end
   
   def conversions
