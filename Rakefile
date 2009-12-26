@@ -1,18 +1,18 @@
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "humanize"
-    gem.summary = %Q{Generates long winded string versions of numbers}
-    gem.description = %Q{Generates long winded string versions of numbers}
+    gem.name = "ordinalize"
+    gem.summary = %Q{Generates long winded string versions of numbers, ordinalized}
+    gem.description = %Q{Generates long winded string versions of numbers, ordinalized}
     gem.email = "radarlistener@gmail.com"
-    gem.homepage = "http://github.com/radar/"
+    gem.homepage = "http://github.com/radar/ordinalize"
     gem.authors = ["Ryan Bigg"]
     gem.add_development_dependency "rspec"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 fo    r additional settings
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install     jeweler"
+  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
 
@@ -23,7 +23,6 @@ rescue LoadError
   require 'spec'
 end
 
-require 'rake/rdoctask'
 require 'spec/rake/spectask'
 desc 'Default: run unit tests.'
 task :default => :test
@@ -34,15 +33,6 @@ Spec::Rake::SpecTask.new do |t|
   t.libs = %w(lib spec)
   t.spec_opts << "-c"
   t.ruby_opts << "-rubygems"
-end
-
-desc 'Generate documentation for the humanize plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'ByStar'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
-  rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
 task :bump => ["version:bump", :gemspec]
