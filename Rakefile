@@ -1,48 +1,71 @@
-require 'rubygems'
-require 'rake'
-
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "ordinalize"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.name = "humanize"
+    gem.summary = %Q{Generates long winded string versions of numbers}
+    gem.description = %Q{Generates long winded string versions of numbers}
     gem.email = "radarlistener@gmail.com"
-    gem.homepage = "http://github.com/radar/ordinalize"
+    gem.homepage = "http://github.com/radar/"
     gem.authors = ["Ryan Bigg"]
     gem.add_development_dependency "rspec"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 fo    r additional settings
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install     jeweler"
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
+
+begin
+  require 'spec'
+rescue LoadError
+  require 'rubygems'
+  require 'spec'
 end
-
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
-end
-
-task :spec => :check_dependencies
-
-task :default => :spec
 
 require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION')
-    version = File.read('VERSION')
-  else
-    version = ""
-  end
+require 'spec/rake/spectask'
+desc 'Default: run unit tests.'
+task :default => :test
 
+desc "Run the specs under spec"
+Spec::Rake::SpecTask.new do |t|
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.libs = %w(lib spec)
+  t.spec_opts << "-c"
+  t.ruby_opts << "-rubygems"
+end
+
+desc 'Generate documentation for the humanize plugin.'
+Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "ordinalize #{version}"
-  rdoc.rdoc_files.include('README*')
+  rdoc.title    = 'ByStar'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README')
   rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+task :bump => ["version:bump", :gemspec]
+
+namespace :version do
+  task :read do
+    unless defined? GEM_VERSION
+      GEM_VERSION = File.read("VERSION")
+    end
+  end
+  
+  task :bump => :read do
+    if ENV['VERSION']
+      GEM_VERSION.replace ENV['VERSION']
+    else
+      GEM_VERSION.sub!(/\d+$/) { |num| num.to_i + 1 }
+    end
+    
+    File.open("VERSION", 'w') { |v| v.write GEM_VERSION }
+  end
+end
+
+task :release => :bump do
+  system %(git add VERSION *.gemspec && git commit -m "release v#{GEM_VERSION}")
+  system %(git tag -am "release v#{GEM_VERSION}" v#{GEM_VERSION})
 end
