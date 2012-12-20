@@ -46,6 +46,14 @@ module Ordinalize
       "ten" => "tenth",
       "eleven" => "eleventh", 
       "twelve" => "twelveth",
+      "thirteen" => "thirteenth",
+      "fourteen" => "fourteenth",
+      "fifteen" => "fifteenth",
+      "sixteen" => "sixteenth",
+      "seventeen" => "seventeenth",
+      "eighteen" => "eighteenth",
+      "nineteen" => "nineteenth",
+      "twenty" => "twentieth"
     }
   end
 end
