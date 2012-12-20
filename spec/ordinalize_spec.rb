@@ -31,6 +31,15 @@ describe "Ordinalize" do
    [27, "twenty-seventh"],
    [28, "twenty-eighth"],
    [29, "twenty-ninth"],
+   [113, "one hundred and thirteenth"],
+   [115, "one hundred and fifteenth"],
+   [116, "one hundred and sixteenth"],
+   [117, "one hundred and seventeenth"],
+   [118, "one hundred and eighteenth"],
+   [119, "one hundred and nineteenth"],
+   [120, "one hundred and twentieth"],
+   [121, "one hundred and twenty-first"],
+   [122, "one hundred and twenty-second"],
    [1005, "one thousand and fifth"],
    [1024, "one thousand and twenty-fourth"]
   ].each do |num, expected|
