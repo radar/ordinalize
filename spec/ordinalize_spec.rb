@@ -35,11 +35,11 @@ describe "Ordinalize" do
    [1024, "one thousand and twenty-fourth"]
   ].each do |num, expected|
     it "#{num} should be #{expected}" do
-      num.ordinalize.should eql(expected)
+      expect(num.ordinalize).to eq(expected)
     end
   end
   
   it "alternative spelling" do
-    1.ordinalise.should eql("first")
+    expect(1.ordinalise).to eq("first")
   end
 end
