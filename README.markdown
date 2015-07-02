@@ -9,7 +9,7 @@ From the creator who brought you the wildly popular [humanize](http://github.com
 # Usage
 
     >> 1.ordinalize
-    => "first"
+    => "1st"
     
     >> 1024.ordinalize
     => "one thousand and twenty-fourth"
